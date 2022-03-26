@@ -2,9 +2,9 @@ const router = require('express').Router();
 const sequelize = require('../config/connection');
 const { Post, User, Comment } = require('../models');
 
+// get all posts for homepage
 router.get('/', (req, res) => {
-    console.log(req.session);
-    
+    console.log(req.session); 
     Post.findAll({
       attributes: [
         'id',
@@ -18,12 +18,12 @@ router.get('/', (req, res) => {
           attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
           include: {
             model: User,
-            attributes: ['username', 'twitter', 'github']
+            attributes: ['username']
           }
         },
         {
           model: User,
-          attributes: ['username', 'twitter', 'github']
+          attributes: ['username']
         }
       ]
     })
@@ -58,6 +58,7 @@ router.get('/login', (req, res) => {
     res.render('signup');
   });
 
+  // get single post
   router.get('/post/:id', (req, res) => {
     Post.findOne({
       where: {
@@ -75,12 +76,12 @@ router.get('/login', (req, res) => {
           attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
           include: {
             model: User,
-            attributes: ['username', 'twitter', 'github']
+            attributes: ['username']
           }
         },
         {
           model: User,
-          attributes: ['username', 'twitter', 'github']
+          attributes: ['username']
         }
       ]
     })
@@ -90,10 +91,8 @@ router.get('/login', (req, res) => {
           return;
         }
   
-        // serialize the data
         const post = dbPostData.get({ plain: true });
   
-        // pass data to template
         res.render('single-post', {
             post,
             loggedIn: req.session.loggedIn

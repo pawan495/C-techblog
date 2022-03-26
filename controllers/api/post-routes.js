@@ -12,21 +12,22 @@ router.get('/', (req, res) => {
             'title',
             'created_at',
             'post_content'
+            [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
         ],
       order: [['created_at', 'DESC']],
       include: [
-        // Comment model here -- attached username to comment
+ 
         {
           model: Comment,
           attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
           include: {
             model: User,
-            attributes: ['username', 'twitter', 'github']
+            attributes: ['username']
           }
         },
         {
           model: User,
-          attributes: ['username', 'twitter', 'github']
+          attributes: ['username']
         },
       ]
     })
@@ -47,19 +48,20 @@ router.get('/', (req, res) => {
         'title',
         'created_at',
         'post_content'
+        [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
       ],
       include: [
-        // include the Comment model here:
+      
         {
           model: User,
-          attributes: ['username', 'twitter', 'github']
+          attributes: ['username']
         },
         {
           model: Comment,
           attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
           include: {
             model: User,
-            attributes: ['username', 'twitter', 'github']
+            attributes: ['username']
           }
         }
       ]

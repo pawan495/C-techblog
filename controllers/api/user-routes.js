@@ -2,9 +2,8 @@ const router = require('express').Router();
 const { User, Post, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-// GET /api/users
+// get all users
 router.get('/', (req, res) => {
-    // Access our User model and run .findAll() method
     User.findAll({
         attributes: { exclude: ['password'] }
     })
@@ -15,7 +14,8 @@ router.get('/', (req, res) => {
       });
   });
 
-// GET /api/users/1
+
+// get one users
 router.get('/:id', (req, res) => {
     User.findOne({
         attributes: { exclude: ['password']},
@@ -51,21 +51,17 @@ router.get('/:id', (req, res) => {
       });
   });
 
-// POST /api/users
+// create post
 router.post('/', (req, res) => {
     User.create({
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
-      twitter: req.body.twitter,
-      github: req.body.github
     })
     .then(dbUserData => {
       req.session.save(() => {
         req.session.user_id = dbUserData.id;
         req.session.username = dbUserData.username;
-        req.session.twitter = dbUserData.twitter;
-        req.session.github = dbUserData.github;
         req.session.loggedIn = true;
     
         res.json(dbUserData);
@@ -73,7 +69,7 @@ router.post('/', (req, res) => {
     });
   });
 
-  // LOGIN
+
   router.post('/login', (req, res) => {
     User.findOne({
       where: {
@@ -93,11 +89,9 @@ router.post('/', (req, res) => {
       }
   
       req.session.save(() => {
-        // declare session variables
+      
         req.session.user_id = dbUserData.id;
         req.session.username = dbUserData.username;
-        req.session.twitter = dbUserData.twitter;
-        req.session.github = dbUserData.github;
         req.session.loggedIn = true;
   
         res.json({ user: dbUserData, message: 'You are now logged in!' });
@@ -117,7 +111,7 @@ router.post('/', (req, res) => {
     }
   });
 
-// PUT /api/users/1
+
 router.put('/:id', withAuth, (req, res) => {
     User.update(req.body, {
         individualHooks: true,
@@ -138,7 +132,7 @@ router.put('/:id', withAuth, (req, res) => {
       });
   });
 
-// DELETE /api/users/1
+
 router.delete('/:id', withAuth, (req, res) => {
     User.destroy({
       where: {
