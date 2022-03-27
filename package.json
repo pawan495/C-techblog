@@ -1,14 +1,19 @@
 {
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "connect-session-sequelize": "^7.1.2",
+    "dotenv": "^16.0.0",
     "express": "^4.17.3",
-    "express-session": "^1.17.2"
+    "express-handlebars": "^6.0.3",
+    "express-session": "^1.17.2",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.17.0"
   },
   "name": "c-techblog",
   "description": "",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
+  "test": "jest",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,5 +26,8 @@
   "bugs": {
     "url": "https://github.com/pawan495/C-techblog/issues"
   },
-  "homepage": "https://github.com/pawan495/C-techblog#readme"
+  "homepage": "https://github.com/pawan495/C-techblog#readme",
+  "devDependencies": {
+    "jest": "^27.5.1"
+  }
 }
