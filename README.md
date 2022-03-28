@@ -15,6 +15,6 @@ https://github.com/pawan495/C-techblog.git
 I got help from module tech-news and AskBCS tutors.
 
 ## Screenshot
-[!screenshot](./images/pic1.png)
-[!screenshot](./images/pic2.png)
+[!screenshot](./images/pic1.png),
+[!screenshot](./images/pic2.png),
 [!screenshot](./images/pic3.png)
